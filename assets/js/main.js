@@ -108,6 +108,8 @@ let myPow = (a, b, callback) => {
 console.log(myPow(3, 4, myPrint));
 console.log(myPow(2, 3, myPrint));
 
+console.log('===================')
+
 /*
  * #4
  *
@@ -179,6 +181,9 @@ console.log(car2.info());
 car.used = 'used';
 console.log(car2.info());
 
+console.log('===================')
+
+
 /*
  * #7
  * Создайте функцию myMax(arr), которая в качестве параметра принимает
@@ -186,35 +191,37 @@ console.log(car2.info());
  * В реализации функции должен быть применен метод Math.max() и apply().
  */
 
-// let list = [12, 23, 100, 34, 56, 9, 233];
+let list = [12, 23, 100, 34, 56, 9, 233];
+let myMax = (arg) => Math.max.apply(Math, arg);
 
-// console.log(myMax(list)); // 233
+console.log(myMax(list));
+
+console.log('===================')
+
 
 /*
  * #8
  *
  * Создайте функцию myMul(a, b), которая будет умножать числа а и b, возвращая результат.
  */
+function myMul(a, b) {
+    return a * b;
+}
 
-/*
- * создайте функции myDouble(n), которая принимает один параметр и  удваивает его.
- * Использовать умножение или другие математические операции внутри функции – запрещено, только bind() и myMul().
- * Функция возвращает результат вычисления.
- */
+let myDouble = myMul.bind(null, 2);
 
-// console.log(myDouble(3)); // = myMul(2, 3) = 6
+console.log(myDouble(3));
+console.log(myDouble(4));
+console.log(myDouble(5));
 
-// console.log(myDouble(4)); // = myMul(2, 4) = 8
 
-// console.log(myDouble(5)); // = myMul(2, 5) = 10
+let myTriple = myMul.bind(null, 3);
 
-// аналогичным образом создайте функцию myTriple(n), которая утраивает принимающий параметр, возвращая результат.
+console.log(myTriple(3));
+console.log(myTriple(4));
+console.log(myTriple(5));
 
-// console.log(myTriple(3)); // = myMul(3, 3) = 9
-
-// console.log(myTriple(4)); // = myMul(3, 4) = 12
-
-// console.log(myTriple(5)); // = myMul(3, 5) = 15
+console.log('===================')
 
 /*
  * #9
@@ -226,10 +233,29 @@ console.log(car2.info());
  * Любые условные операторы – запрещены и объекты.
  */
 
-// let notUniqNums = [1, 1, 2, 3, 4, 5, 6, 7];
+let notUniqNums = [1, 1, 2, 3, 4, 5, 6, 7];
+let notUniqStrings = [
+    'Boris',
+    'Andre',
+    'Karina',
+    'Olga',
+    'Boris',
+    'Andre',
+    'Karina',
+    'Olga',
+    'Boris',
+    'Andre'
+];
 
-// let notUniqStrings = ['Bob', 'Kate', 'Jhon', 'Tom', 'Jhon', 'Kate', 'Tom', 'Bob', 'Jhon', 'Tom'];
+let myUniq = (arr) => {
+    let set = new Set();
 
-// console.log(myUniq(notUniqNums));
+    arr.forEach((val) => {
+        set.add(val);
+    });
 
-// console.log(myUniq(notUniqStrings));
+    return set;
+};
+
+console.log(myUniq(notUniqNums));
+console.log(myUniq(notUniqStrings));
