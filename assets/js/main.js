@@ -94,9 +94,19 @@ console.log('===================')
  * console.log(myPow(2, 3, myPrint)); // 2^3=8
  */
 
-//  console.log(myPow(3, 4, myPrint)); // 3^4=81
+let myPrint = (a, b, res) => `${a}^${b}=${res}`;
+let myPow = (a, b, callback) => {
+    let pow = (x, n) => {
+        if (n !== 1) return x *= pow(x, n - 1);
 
-// console.log(myPow(2, 3, myPrint)); // 2^3=8
+        return x;
+    };
+
+    return callback(a, b, pow(a, b));
+};
+
+console.log(myPow(3, 4, myPrint));
+console.log(myPow(2, 3, myPrint));
 
 /*
  * #4
@@ -128,23 +138,46 @@ console.log('===================')
  * - если сеттеру used присвоено значение 'used', ничего делать не нужно
  */
 
-// let yearNow = new Date().getFullYear(); // получить текущий год как число
+function fullInfo() {
+    return `${this.name} ${this.model}, ${this.engine}cc, year ${this.year}, ${this.used}`;
+}
 
-// console.log(car.info()); // Chevrolet Lacetti, 2000cc, year 2010, used
+let yearNow = new Date().getFullYear();
+let car = {
+    engine: 2000,
+    model: 'Lacetti',
+    name: 'Chevrolet',
+    year: 2010,
+    info: fullInfo,
+    get used() {
+        return this.year !== yearNow ? 'used' : 'new';
+    },
+    set used(value) {
+        if (value === 'new' && this.year < yearNow) this.year = yearNow;
+    }
+};
+let car2 = {
+    engine: 5000,
+    model: 'FX50 AWD',
+    name: 'Infinite',
+    year: 2019,
+    info: fullInfo,
+    get used() {
+        return yearNow - this.year ? 'used' : 'new';
+    },
+    set used(value) {
+        if (value === 'new' && this.year < yearNow) this.year = yearNow;
+    }
+};
 
-// car.used = 'new';
-
-// console.log(car.info()); // Chevrolet Lacetti, 2000cc, year 2019, new -- год изменен
-
-// car.used = 'used';
-
-// console.log(car.info()); // Chevrolet Lacetti, 2000cc, year 2019, new -- изменения не выполняются
-
-// console.log(car2.info()); // Infinite FX50 AWD, 5000cc, year 2019, new
-
-// car.used = 'used';
-
-// console.log(car2.info()); // Infinite FX50 AWD, 5000cc, year 2019, new -- изменения не выполняются
+console.log(car.info());
+car.used = 'new';
+console.log(car.info());
+car.used = 'used';
+console.log(car.info());
+console.log(car2.info());
+car.used = 'used';
+console.log(car2.info());
 
 /*
  * #7
